@@ -112,12 +112,13 @@ public class ReactivationManager {
         int ERROR = -1;
         try {
             Key key = sleepDsIndexIdDs.get(idDs);
-
-            Trigger[] trigers = scheduler.getTriggersOfJob(key.getName(), key.getGroup());
-            if ( (trigers != null) && (trigers.length > 0)) {
-                return scheduler.getTriggersOfJob(key.getName(), key.getGroup())[0].getNextFireTime().getTime() - new Date().getTime();
-            } else {
-                return ERROR;
+            if (key != null) {
+                Trigger[] trigers = scheduler.getTriggersOfJob(key.getName(), key.getGroup());
+                if ((trigers != null) && (trigers.length > 0)) {
+                    return scheduler.getTriggersOfJob(key.getName(), key.getGroup())[0].getNextFireTime().getTime() - new Date().getTime();
+                } else {
+                    return ERROR;
+                }
             }
         } catch (Exception e) {
             LOG.error(e);

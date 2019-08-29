@@ -26,6 +26,8 @@ import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
 
+import com.serotonin.mango.vo.dataSource.http.ICheckReactivation;
+import org.scada_lts.ds.model.ReactivationDs;
 import org.snmp4j.mp.SnmpConstants;
 
 import com.serotonin.json.JsonException;
@@ -50,7 +52,7 @@ import com.serotonin.web.i18n.LocalizableMessage;
  * 
  */
 @JsonRemoteEntity
-public class SnmpDataSourceVO extends DataSourceVO<SnmpDataSourceVO> {
+public class SnmpDataSourceVO extends DataSourceVO<SnmpDataSourceVO> implements ICheckReactivation {
     public static final Type TYPE = Type.SNMP;
 
     public interface AuthProtocols {
@@ -147,6 +149,13 @@ public class SnmpDataSourceVO extends DataSourceVO<SnmpDataSourceVO> {
     private int trapPort = SnmpConstants.DEFAULT_NOTIFICATION_RECEIVER_PORT;
     @JsonRemoteProperty
     private String localAddress;
+
+    @JsonRemoteProperty
+    private boolean stop = false;
+
+    @JsonRemoteProperty
+    private ReactivationDs reactivation = new ReactivationDs();
+
 
     public String getAuthPassphrase() {
         return authPassphrase;
@@ -292,6 +301,22 @@ public class SnmpDataSourceVO extends DataSourceVO<SnmpDataSourceVO> {
         this.localAddress = localAddress;
     }
 
+    public boolean isStop() {
+        return stop;
+    }
+
+    public void setStop(boolean stop) {
+        this.stop = stop;
+    }
+
+    public ReactivationDs getReactivation() {
+        return reactivation;
+    }
+
+    public void setReactivation(ReactivationDs reactivation) {
+        this.reactivation = reactivation;
+    }
+
     @Override
     public void validate(DwrResponseI18n response) {
         super.validate(response);
@@ -344,6 +369,8 @@ public class SnmpDataSourceVO extends DataSourceVO<SnmpDataSourceVO> {
         AuditEventType.addPropertyMessage(list, "dsEdit.snmp.timeout", timeout);
         AuditEventType.addPropertyMessage(list, "dsEdit.snmp.trapPort", trapPort);
         AuditEventType.addPropertyMessage(list, "dsEdit.snmp.localAddress", localAddress);
+        AuditEventType.addPropertyMessage(list, "dsEdit.snmp.stop", stop );
+        AuditEventType.addPropertyMessage(list, "dsEdit.snmp.reactivation", reactivation );
     }
 
     @Override
@@ -369,6 +396,8 @@ public class SnmpDataSourceVO extends DataSourceVO<SnmpDataSourceVO> {
         AuditEventType.maybeAddPropertyChangeMessage(list, "dsEdit.snmp.timeout", from.timeout, timeout);
         AuditEventType.maybeAddPropertyChangeMessage(list, "dsEdit.snmp.trapPort", from.trapPort, trapPort);
         AuditEventType.maybeAddPropertyChangeMessage(list, "dsEdit.snmp.localAddress", from.localAddress, localAddress);
+        AuditEventType.maybeAddPropertyChangeMessage(list, "dsEdit.snmp.stop", from.stop, stop );
+        AuditEventType.maybeAddPropertyChangeMessage(list, "dsEdit.snmp.reactivation", from.reactivation, reactivation );
     }
 
     //
@@ -399,6 +428,8 @@ public class SnmpDataSourceVO extends DataSourceVO<SnmpDataSourceVO> {
         out.writeInt(updatePeriods);
         out.writeInt(trapPort);
         SerializationHelper.writeSafeUTF(out, localAddress);
+        out.writeObject(stop);
+        out.writeObject(reactivation);
     }
 
     private void readObject(ObjectInputStream in) throws IOException {
@@ -444,6 +475,16 @@ public class SnmpDataSourceVO extends DataSourceVO<SnmpDataSourceVO> {
             updatePeriods = in.readInt();
             trapPort = in.readInt();
             localAddress = SerializationHelper.readSafeUTF(in);
+            try {
+                stop = in.readBoolean();
+            } catch (Exception e) {
+                stop = false;
+            }
+            try {
+                reactivation = (ReactivationDs) in.readObject();
+            } catch (Exception e) {
+                reactivation = new ReactivationDs(false, (short) 1,(short) 1);
+            }
         }
     }
 
@@ -459,5 +500,10 @@ public class SnmpDataSourceVO extends DataSourceVO<SnmpDataSourceVO> {
     public void jsonSerialize(Map<String, Object> map) {
         super.jsonSerialize(map);
         serializeUpdatePeriodType(map, updatePeriodType);
+    }
+
+    @Override
+    public boolean checkToTrayEnable() {
+        return isEnabled() || isStop() || reactivation.isSleep();
     }
 }

@@ -49,7 +49,7 @@ import com.serotonin.mango.vo.User;
  * 
  * @author Grzesiek Bylica grzegorz.bylica@gmail.com
  */
-@Controller 
+@Controller
 public class ViewHierarchyAPI {
 	
 	private static final Log LOG = LogFactory.getLog(ViewHierarchyAPI.class);

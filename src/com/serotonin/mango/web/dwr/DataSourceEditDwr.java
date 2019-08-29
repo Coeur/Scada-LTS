@@ -801,6 +801,48 @@ public class DataSourceEditDwr extends DataSourceListDwr {
 	}
 
 	@MethodFilter
+	public DwrResponseI18n saveSnmpDataSourceWithReactivationOptions(
+				String name, String xid,
+				int updatePeriods, int updatePeriodType,
+				String host, int port,
+				int snmpVersion, String community,
+				String securityName, String authProtocol,
+				String authPassphrase, String privProtocol,
+				String privPassphrase, String engineId,
+				String contextEngineId, String contextName,
+				int retries, int timeout,
+				int trapPort, String localAddress,
+				boolean stop, boolean sleep, short typeReactivation, short valueReactivation) {
+
+		SnmpDataSourceVO ds = (SnmpDataSourceVO) Common.getUser()
+				.getEditDataSource();
+
+		ds.setXid(xid);
+		ds.setName(name);
+		ds.setUpdatePeriods(updatePeriods);
+		ds.setUpdatePeriodType(updatePeriodType);
+		ds.setHost(host);
+		ds.setPort(port);
+		ds.setSnmpVersion(snmpVersion);
+		ds.setCommunity(community);
+		ds.setSecurityName(securityName);
+		ds.setAuthProtocol(authProtocol);
+		ds.setAuthPassphrase(authPassphrase);
+		ds.setPrivProtocol(privProtocol);
+		ds.setPrivPassphrase(privPassphrase);
+		ds.setEngineId(engineId);
+		ds.setContextEngineId(contextEngineId);
+		ds.setContextName(contextName);
+		ds.setRetries(retries);
+		ds.setTimeout(timeout);
+		ds.setTrapPort(trapPort);
+		ds.setLocalAddress(localAddress);
+
+		return tryDataSourceSave(ds);
+	}
+
+
+	@MethodFilter
 	public DwrResponseI18n saveSnmpPointLocator(int id, String xid,
 			String name, SnmpPointLocatorVO locator) {
 		return validatePoint(id, xid, name, locator, null);

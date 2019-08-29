@@ -21,10 +21,21 @@
 <%@page import="com.serotonin.mango.vo.dataSource.snmp.SnmpDataSourceVO"%>
 <%@page import="com.serotonin.mango.vo.dataSource.snmp.SnmpPointLocatorVO"%>
 <%@page import="com.serotonin.mango.DataTypes"%>
-
+<link href="resources/new-ui/css/app.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 
   var trapEnabled;
+
+  var editDSNewUI = {
+       id: ${dataSource.id},
+       stop: ${dataSource.stop},
+       reactivation: {
+         sleep: ${dataSource.reactivation.sleep},
+         type: ${dataSource.reactivation.type},
+         value: ${dataSource.reactivation.value}
+       }
+  }
+
   if($get("trapPort") == "0") {
       trapEnabled = false;
   } else {
@@ -115,6 +126,35 @@
               $get("privPassphrase"), $get("engineId"), $get("contextEngineId"), $get("contextName"), $get("retries"),
               $get("timeout"), $get("trapPort"), $get("localAddress"), saveDataSourceCB);
   }
+
+  function saveDataSourceImplNew() {
+          DataSourceEditDwr.saveSnmpDataSourceWithReactivationOptions(
+              $get("dataSourceName"),
+              $get("dataSourceXid"),
+              $get("updatePeriods"),
+              $get("updatePeriodType"),
+              $get("host"),
+              $get("port"),
+              $get("snmpVersion"),
+              $get("community"),
+              $get("securityName"),
+              $get("authProtocol"),
+              $get("authPassphrase"),
+              $get("privProtocol"),
+              $get("privPassphrase"),
+              $get("engineId"),
+              $get("contextEngineId"),
+              $get("contextName"),
+              $get("retries"),
+              $get("timeout"),
+              $get("trapPort"),
+              $get("localAddress"),
+              editDSNewUI.stop,
+              editDSNewUI.reactivation.sleep,
+              editDSNewUI.reactivation.type,
+              editDSNewUI.reactivation.value,
+              saveDataSourceCB);
+      }
   
   function appendPointListColumnFunctions(pointListColumnHeaders, pointListColumnFunctions) {
       pointListColumnHeaders[pointListColumnHeaders.length] = "<fmt:message key="dsEdit.snmp.oid"/>";
@@ -324,8 +364,18 @@
             </td>
           </tr>
           <tr><td colspan="2" id="snmpWalkMessage" class="formError"></td></tr>
+      </table>
+      <table>
+      <tr>
+                      <td COLSPAN=2>
+                          <div id="app">
+                            <sleep-reactivation-ds></sleep-reactivation-ds>
+                          </div>
+                      </td>
+                </tr>
+      </table>
 <%@ include file="/WEB-INF/jsp/dataSourceEdit/dsFoot.jspf" %>
-
+<table>
 <tag:pointList pointHelpId="snmpPP">
   <tr>
     <td class="formLabelRequired"><fmt:message key="dsEdit.snmp.oid"/></td>
@@ -373,4 +423,7 @@
       </select>
     </td>
   </tr>
+
 </tag:pointList>
+</table>
+<%@ include file="/WEB-INF/jsp/include/tech-vuejs.jsp"%>

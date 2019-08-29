@@ -49,6 +49,7 @@ import org.scada_lts.ds.model.ReactivationDs;
 public class HttpRetrieverDataSourceVO extends DataSourceVO<HttpRetrieverDataSourceVO> implements ICheckReactivation{
     public static final Type TYPE = Type.HTTP_RETRIEVER;
 
+
     @Override
     protected void addEventTypes(List<EventTypeVO> ets) {
         ets.add(createEventType(HttpRetrieverDataSourceRT.DATA_RETRIEVAL_FAILURE_EVENT, new LocalizableMessage(
@@ -62,6 +63,8 @@ public class HttpRetrieverDataSourceVO extends DataSourceVO<HttpRetrieverDataSou
         EVENT_CODES.addElement(HttpRetrieverDataSourceRT.DATA_RETRIEVAL_FAILURE_EVENT, "DATA_RETRIEVAL_FAILURE");
         EVENT_CODES.addElement(HttpRetrieverDataSourceRT.PARSE_EXCEPTION_EVENT, "PARSE_EXCEPTION");
     }
+
+
 
     @Override
     public ExportCodes getEventCodes() {
@@ -173,6 +176,7 @@ public class HttpRetrieverDataSourceVO extends DataSourceVO<HttpRetrieverDataSou
             response.addContextualMessage("updatePeriods", "validate.greaterThanZero");
         if (retries < 0)
             response.addContextualMessage("retries", "validate.cannotBeNegative");
+
     }
 
     @Override
@@ -255,6 +259,7 @@ public class HttpRetrieverDataSourceVO extends DataSourceVO<HttpRetrieverDataSou
     }
 
     public boolean checkToTrayEnable() {
+
         return isEnabled() || isStop() || reactivation.isSleep();
     }
 }

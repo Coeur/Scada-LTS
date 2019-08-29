@@ -15,7 +15,7 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see http://www.gnu.org/licenses/.
---%><%@ page contentType="text/html;charset=UTF-8" language="java" %><%--
+--%><%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%><%--
 --%><%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %><%--
 --%><%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %><%--
 --%><fmt:setBundle basename="messages" /><%--

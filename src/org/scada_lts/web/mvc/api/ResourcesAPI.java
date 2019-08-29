@@ -57,7 +57,8 @@ public class ResourcesAPI {
                 return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
             }
         } catch (Exception e) {
-             return new ResponseEntity<String>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
+
+            return new ResponseEntity<String>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
