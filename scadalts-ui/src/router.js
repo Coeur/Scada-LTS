@@ -27,6 +27,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "components" */ './views/Components.vue')
     },
     {
+      path: '/example-ph',
+      name: 'example-ph',
+      component: () => import(/* webpackChunkName: "ph" */ './views/components/ExampleExportImportPointHierarchy.vue')
+    },
+    {
       path: '/example-test',
       name: 'example-test',
       component: () => import(/* webpackChunkName: "test-component" */ './views/components/ExampleTest.vue')
@@ -50,11 +55,6 @@ export default new Router({
       path: '/example-cmp',
       name: 'example-cmp',
       component: () => import(/* webpackChunkName: "cmp-component" */ './views/components/ExampleCmp.vue')
-    },
-    {
-      path: '/example-export-import-point-hierarchy',
-      name: 'example-export-import-point-hierarchy',
-      component: () => import(/* webpackChunkName: "export-import-point-hierarchy" */ './views/components/ExampleExportImportPointHierarchy.vue')
     }
   ]
 })

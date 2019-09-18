@@ -20,7 +20,7 @@
     import ExportImportPointHierarchy from "../../components/point_hierarchy/ExportImportPointHierarchy"
 
     export default {
-        name: 'components',
+        name: 'example-ph',
         components: {
             ExportImportPointHierarchy
         }

@@ -18,7 +18,7 @@
     import Test from "../../components/Test.vue";
 
     export default {
-        name: 'components',
+        name: 'example-test',
         components: {
             Test,
         }

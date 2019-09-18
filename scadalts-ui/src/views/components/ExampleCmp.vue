@@ -21,7 +21,7 @@
     import CMP from "../../components/graphical_views/CMP"
 
     export default {
-        name: 'components',
+        name: 'example-cmp',
         components: {
             CMP,
         }

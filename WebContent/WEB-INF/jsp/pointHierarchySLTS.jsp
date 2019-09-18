@@ -22,12 +22,13 @@
 
 <link href=resources/new-ui/css/app.css rel=stylesheet>
 
+<!--
 <script src="resources/npm/node_modules/vue-jsoneditor/dist/lib/vjsoneditor.min.js"></script>
 
 <link
 	href="resources/npm/node_modules/vue-jsoneditor/dist/lib/vjsoneditor.min.css"
     rel="stylesheet" type="text/css">
-
+-->
 
 <style type="text/css">
 
@@ -439,10 +440,11 @@ thead th {
 <script src="resources/sockjs-0.3.4.js"></script>
 <script src="resources/stomp.js"></script>
 
-<script src="resources/npm/node_modules/axios/dist/axios.min.js"></script>
+<!--<script src="resources/npm/node_modules/axios/dist/axios.min.js"></script>
 <script src="resources/npm/node_modules/vue/dist/vue.min.js"></script>
 <script src="resources/npm/node_modules/vue-axios/dist/vue-axios.min.js"></script>
 <script src="resources/vue-mixins/shared/mixins-export-import.js"></script>
+
 <script src="resources/vue-components/export-import/export-import.js"></script>
 
 <script src="resources/npm/node_modules/vue-jsoneditor/dist/lib/vjsoneditor.min.js"></script>
@@ -450,8 +452,9 @@ thead th {
 
 <script src=resources/new-ui/js/manifest.js></script>
 <script src=resources/new-ui/js/vendor.js></script>
-<script src=resources/new-ui/js/app.js></script>
+<script src=resources/new-ui/js/app.js></script>-->
 
+<%@ include file="/WEB-INF/jsp/include/vue/ph/vue-ph.js.jsp"%>
 
 <script>
 "use strict";

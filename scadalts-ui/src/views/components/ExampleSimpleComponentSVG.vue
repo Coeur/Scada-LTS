@@ -19,7 +19,7 @@
     import SimpleComponentSvg from "../../components/graphical_views/SimpleComponentSVG"
 
     export default {
-        name: 'components',
+        name: 'example-simple-component-svg',
         components: {
             SimpleComponentSvg,
         }

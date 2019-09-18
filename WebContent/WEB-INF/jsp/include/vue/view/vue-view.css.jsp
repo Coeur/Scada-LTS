@@ -1,0 +1,1 @@
+<style><%@include file="./resources/js-ui/views/css/cmp-cmponent.css"%></style>

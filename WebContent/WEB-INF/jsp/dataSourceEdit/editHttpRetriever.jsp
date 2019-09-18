@@ -18,7 +18,8 @@
 --%>
 <%@ include file="/WEB-INF/jsp/include/tech.jsp" %>
 <%@page import="com.serotonin.mango.DataTypes"%>
-<link href="resources/new-ui/css/app.css" rel="stylesheet" type="text/css">
+<%@ include file="/WEB-INF/jsp/include/vue/ds/vue-ds.css.jsp"%>
+<!-- <link href="resources/new-ui/css/app.css" rel="stylesheet" type="text/css"> -->
 <style>
   table {
      border-collapse: separate !important;
@@ -261,4 +262,4 @@
     </tr>
   </tbody>
 </tag:pointList>
-<%@ include file="/WEB-INF/jsp/include/tech-vuejs.jsp"%>
+<%@ include file="/WEB-INF/jsp/include/vue/ds/vue-ds.js.jsp"%>

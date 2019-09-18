@@ -19,7 +19,7 @@
     import SleepAndReactivationDS from "../../components/forms/SleepAndReactivationDS";
 
     export default {
-        name: 'components',
+        name: 'example-sleep-and-reactivation-ds',
         components: {
             SleepAndReactivationDS,
         }

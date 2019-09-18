@@ -19,7 +19,7 @@
     import IsAlive from "../../components/graphical_views/IsAlive"
 
     export default {
-        name: 'components',
+        name: 'example-isalive',
         components: {
             IsAlive,
         }
